@@ -1,0 +1,40 @@
+{
+    "name": "gpibarra/chatwoot-sdk-php",
+    "description": "Framework-agnostic PHP SDK for the Chatwoot Application API and Platform API, built on Saloon.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["chatwoot", "api", "sdk", "saloon", "customer-support"],
+    "require": {
+        "php": "^8.5",
+        "saloonphp/saloon": "^4.5"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.0",
+        "pestphp/pest": "^5.0",
+        "phpstan/phpstan": "^2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "GPIbarra\\ChatwootSdk\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "GPIbarra\\ChatwootSdk\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "pest",
+        "analyse": "phpstan analyse --memory-limit=1G",
+        "format": "pint",
+        "format:check": "pint --test"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
