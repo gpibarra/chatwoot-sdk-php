@@ -1,0 +1,34 @@
+<?php
+
+declare(strict_types=1);
+
+namespace GPIbarra\ChatwootSdk\Requests\Application\Conversations;
+
+use GPIbarra\ChatwootSdk\Requests\JsonBodyRequest;
+use Saloon\Enums\Method;
+
+/**
+ * Toggle the typing indicator of a conversation.
+ *
+ * `POST /api/v1/accounts/{accountId}/conversations/{conversationId}/toggle_typing_status`
+ */
+final class ToggleConversationTypingStatusRequest extends JsonBodyRequest
+{
+    protected Method $method = Method::POST;
+
+    /**
+     * @param  array<string, mixed>  $payload  JSON body.
+     */
+    public function __construct(
+        public readonly int $accountId,
+        public readonly int $conversationId,
+        array $payload = [],
+    ) {
+        $this->payload = $payload;
+    }
+
+    public function resolveEndpoint(): string
+    {
+        return "/api/v1/accounts/{$this->accountId}/conversations/{$this->conversationId}/toggle_typing_status";
+    }
+}

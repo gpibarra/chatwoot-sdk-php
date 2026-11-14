@@ -1,0 +1,39 @@
+<?php
+
+declare(strict_types=1);
+
+namespace GPIbarra\ChatwootSdk\Requests\Application\HelpCenter;
+
+use GPIbarra\ChatwootSdk\Requests\BaseRequest;
+use Saloon\Enums\Method;
+
+/**
+ * List the categories of a portal.
+ *
+ * `GET /api/v1/accounts/{accountId}/portals/{portalSlug}/categories`
+ */
+final class ListCategoriesRequest extends BaseRequest
+{
+    protected Method $method = Method::GET;
+
+    /**
+     * @param  array<string, mixed>  $query  Query string parameters.
+     */
+    public function __construct(
+        public readonly int $accountId,
+        public readonly string $portalSlug,
+        array $query = [],
+    ) {
+        $this->queryParameters = $query;
+    }
+
+    public function resolveEndpoint(): string
+    {
+        return "/api/v1/accounts/{$this->accountId}/portals/{$this->encodedSlug($this->portalSlug)}/categories";
+    }
+
+    private function encodedSlug(string $slug): string
+    {
+        return rawurlencode($slug);
+    }
+}

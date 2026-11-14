@@ -1,0 +1,39 @@
+<?php
+
+declare(strict_types=1);
+
+namespace GPIbarra\ChatwootSdk\Requests\Application\HelpCenter;
+
+use GPIbarra\ChatwootSdk\Requests\BaseRequest;
+use Saloon\Enums\Method;
+
+/**
+ * Get a help center portal.
+ *
+ * `GET /api/v1/accounts/{accountId}/portals/{portalSlug}`
+ */
+final class GetPortalRequest extends BaseRequest
+{
+    protected Method $method = Method::GET;
+
+    /**
+     * @param  array<string, mixed>  $query  Query string parameters.
+     */
+    public function __construct(
+        public readonly int $accountId,
+        public readonly string $portalSlug,
+        array $query = [],
+    ) {
+        $this->queryParameters = $query;
+    }
+
+    public function resolveEndpoint(): string
+    {
+        return "/api/v1/accounts/{$this->accountId}/portals/{$this->encodedSlug($this->portalSlug)}";
+    }
+
+    private function encodedSlug(string $slug): string
+    {
+        return rawurlencode($slug);
+    }
+}

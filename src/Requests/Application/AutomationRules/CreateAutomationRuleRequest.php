@@ -1,0 +1,33 @@
+<?php
+
+declare(strict_types=1);
+
+namespace GPIbarra\ChatwootSdk\Requests\Application\AutomationRules;
+
+use GPIbarra\ChatwootSdk\Requests\JsonBodyRequest;
+use Saloon\Enums\Method;
+
+/**
+ * Create an automation rule.
+ *
+ * `POST /api/v1/accounts/{accountId}/automation_rules`
+ */
+final class CreateAutomationRuleRequest extends JsonBodyRequest
+{
+    protected Method $method = Method::POST;
+
+    /**
+     * @param  array<string, mixed>  $payload  JSON body.
+     */
+    public function __construct(
+        public readonly int $accountId,
+        array $payload = [],
+    ) {
+        $this->payload = $payload;
+    }
+
+    public function resolveEndpoint(): string
+    {
+        return "/api/v1/accounts/{$this->accountId}/automation_rules";
+    }
+}
