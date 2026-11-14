@@ -1,0 +1,41 @@
+<?php
+
+declare(strict_types=1);
+
+namespace GPIbarra\ChatwootSdk\Requests\Platform\Accounts;
+
+use GPIbarra\ChatwootSdk\Data\Account;
+use GPIbarra\ChatwootSdk\Requests\JsonBodyRequest;
+use GPIbarra\ChatwootSdk\Support\ResponseData;
+use Saloon\Enums\Method;
+use Saloon\Http\Response;
+
+/**
+ * Update an account.
+ *
+ * `PATCH /platform/api/v1/accounts/{accountId}`
+ */
+final class UpdateAccountRequest extends JsonBodyRequest
+{
+    protected Method $method = Method::PATCH;
+
+    /**
+     * @param  array<string, mixed>  $payload  JSON body.
+     */
+    public function __construct(
+        public readonly int $accountId,
+        array $payload = [],
+    ) {
+        $this->payload = $payload;
+    }
+
+    public function resolveEndpoint(): string
+    {
+        return "/platform/api/v1/accounts/{$this->accountId}";
+    }
+
+    public function createDtoFromResponse(Response $response): Account
+    {
+        return Account::fromArray(ResponseData::object($response));
+    }
+}
